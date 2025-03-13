@@ -1,8 +1,7 @@
-  // tailwind.config.js
-  module.exports = {
-    variants: {
-      extend: {
-       backgroundOpacity: ['active'],
-      }
+// tailwind.config.js
+module.exports = {
+  theme:{
+    extend:{
     }
   }
+}

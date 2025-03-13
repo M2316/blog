@@ -1,14 +1,41 @@
 @import "tailwindcss";
 
+@theme {
+    --text-xss: 0.6rem;
+    /* margin */
+    --header-margin-1: 2rem;
+    --header-margin-2: 1.5rem;
+    --header-margin-3: 1rem;
+    --header-margin-4: 0.25rem;
+    --header-margin-5: 0.1rem;
 
+    /* breakpoint */
+    /* QHD 해상도 화면 */
+    --breakpoint-3xl: 2000px;
 
-h3{
-    @apply text-2xl font-bold my-4;
+    /* main color */
+    --main-color: #3CC2D1;
+
 }
-h4{
-    @apply text-lg font-bold my-1;
+
+@media screen and (min-width: 2000px) {}
+
+h1 {
+    @apply text-6xl font-bold;
 }
 
-.opacity-gb{
+h2 {
+    @apply text-5xl font-bold;
+}
+
+h3 {
+    @apply text-2xl font-bold;
+}
+
+h4 {
+    @apply text-lg font-bold;
+}
+
+.opacity-gb {
     background-color: rgba(0, 0, 0, 0.75);
 }
