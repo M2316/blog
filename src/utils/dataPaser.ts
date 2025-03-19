@@ -9,10 +9,10 @@ export const ParseToContent = (content: Result): Content => {
     const createdAt: string = dayjs(content.created_time).format("YYYY-MM-DD HH:mm:ss");
     const updatedAt: string = dayjs(content.last_edited_time).format("YYYY-MM-DD HH:mm:ss");
     const tags: Tag[] = content.properties["연관 태그"].multi_select.map((tag: Tag) => tag.name);
-    const contentNumber: Number = content.properties["게시글 ID"].unique_id.number;
+    const contentNumber: number = content.properties["게시글 ID"].unique_id.number;
     const category: string = content.properties["카테고리"].select?.name;
     const subtitle: string = content.properties["부제목"].rich_text[0]?.first;
-    const views: Number = content.properties["조회수"].number;
+    const views: number = content.properties["조회수"].number;
 
     return {
         id,
