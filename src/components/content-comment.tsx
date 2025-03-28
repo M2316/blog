@@ -3,9 +3,9 @@
 import { useRef } from "react";
 
 export default function ContentComment() {
-  const textRef = useRef<any>(null);
+  const textRef = useRef<HTMLTextAreaElement | null>(null);
 
-  const changeHandler = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+  const changeHandler = () => {
     if (textRef.current) {
       textRef.current.style.height = `auto`;
       textRef.current.style.height = `${textRef.current.scrollHeight}px`;
@@ -21,8 +21,8 @@ export default function ContentComment() {
             className="border border-gray-300 rounded-xl p-5 w-full resize-false outline-none"
             placeholder="댓글을 작성하세요."
             ref={textRef}
-            onChange={(e) => {
-              changeHandler(e);
+            onChange={() => {
+              changeHandler();
             }}
           />
           <div className="flex justify-between w-full ">

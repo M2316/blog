@@ -1,10 +1,13 @@
+import { Suspense } from "react";
 import SideNav from "./side-nav";
 
 export default function Layout({ children } : { children: React.ReactNode}){
     return (
         <>
         {children}
-        <SideNav/>
+        <Suspense fallback={<div>Loading...</div>}>
+            <SideNav />
+        </Suspense>
         </>
     )
 

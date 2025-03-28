@@ -1,13 +1,11 @@
 import NextContentCard from "@/components/card/next-content-card";
-import Image from "next/image";
-import Link from "next/link";
+import PostedDetail from "@/components/posted-detail";
 
-export default async function Page({
-  params,
-}: {
-  params: Promise<{ id: string }>;
-}) {
-  const { id: paramsId } = await params;
+
+
+export default async function Page({params}: {params: Promise<{id:string}>}) {
+  
+  const {id : paramsId} = await params;
 
   return (
     <section className="flex flex-col items-center w-full gap-10">
@@ -25,8 +23,8 @@ export default async function Page({
           </div>
         </div>
       </div>
-      <article className="w-full flex justify-center min-h-200 py-20 border border-gray-300 rounded-xl">
-        <h2>본문내용 넣으면 됨</h2>
+      <article className="w-full flex justify-center min-h-200 p-10 border border-gray-300 rounded-xl bg-gray-100 shadow-md">
+        <PostedDetail postedId={paramsId} />
       </article>
       <div className="flex flex-col justify-start w-full gap-3">
         <h3 className="font-bold my-header-margin-3 flex w-full">
@@ -34,13 +32,13 @@ export default async function Page({
         </h3>
         <ul className="flex justify-between gap-3">
           <li className="w-1/3">
-            <NextContentCard/>
+            <NextContentCard />
           </li>
           <li className="w-1/3">
-            <NextContentCard/>
+            <NextContentCard />
           </li>
           <li className="w-1/3">
-            <NextContentCard/>
+            <NextContentCard />
           </li>
         </ul>
       </div>

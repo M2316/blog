@@ -16,10 +16,15 @@
     /* main color */
     --main-color: #3CC2D1;
 
+    --color-card-background: #f0f0f0;
+
 }
 
 @media screen and (min-width: 2000px) {}
 
+html {
+    scroll-behavior: smooth;
+}
 h1 {
     @apply text-6xl font-bold;
 }
@@ -38,4 +43,18 @@ h4 {
 
 .opacity-gb {
     background-color: rgba(0, 0, 0, 0.75);
+}
+
+
+.notion-collection-page-properties{
+    display: none !important;
+}
+
+.text-line-clamp{
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2; /* 원하는 줄 수 설정 */
+    overflow: hidden;
+    line-height: 1.5; /* 선택적: 줄 간격 조정 */
+    max-height: 3em; /* 선택적: (line-height × 줄 수) */
 }

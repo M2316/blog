@@ -1,46 +1,51 @@
+'use client';
+import { use, useEffect, useState } from "react";
 import { Content, getContentList, Tag } from "@/actions/content.action";
 import CategoryItemCard from "@/components/card/category-item-card";
 import { FaArrowDown } from "react-icons/fa";
+import { useSearchParams } from "next/navigation";
 
-export default async function Page({
-  searchParams,
-}: {
-  searchParams: Promise<{ id?: string; groupName?: string }>;
-}) {
-  const { id, groupName } = await searchParams;
+export default function Page() {
 
-  const response = await getContentList({
-    filter: {
-      property: "상태",
-      status: {
-        equals: "게시",
-      },
-    },
-  });
+  const searchParmas = useSearchParams();
+  const id = searchParmas.get("id");
 
-  if (!Array.isArray(response)) {
-    console.error("Failed to fetch content list:", response);
-    return null;
-  }
+  useEffect(()=>{
+    const contentFacth = async ()=>{
+      const contentList: Content[] = await getContentList({
+        filter: {
+          property: "상태",
+          status: {
+            equals: "게시",
+          },
+        },
+      });
+      if (!Array.isArray(contentList)) {
+        console.error("Failed to fetch content list:", contentList);
+        return null;
+      }
 
-  const contentList: Content[] = response;
+      
+      const groupContentList = contentList.filter(
+        (content: Content) => content.groupId === id
+      );
+    
+      const tagList: Tag[] = [];
+    
+      groupContentList.forEach((content:Content) =>{
+        content.tags?.forEach((tag:Tag)=>{
+          if(tagList.findIndex((alreadyTag:Tag)=>alreadyTag.name === tag.name) >= 0) return;
+          tagList.push(tag);
+        })
+      })
+    }
+  contentFacth();
 
-  const groupContentList = contentList.filter(
-    (content: Content) => content.groupId === id
-  );
-
-  const tagList: Tag[] = [];
-
-  groupContentList.forEach((content:Content) =>{
-    content.tags?.forEach((tag:Tag)=>{
-      if(tagList.findIndex((alreadyTag:Tag)=>alreadyTag.name === tag.name) >= 0) return;
-      tagList.push(tag);
-    })
-  })
+  },[]);
 
   return (
     <section className="flex flex-col items-center min-h-screen w-full">
-      <div className="flex w-full justify-center">
+      {/* <div className="flex w-full justify-center">
         <h1 className="my-(--header-margin-1)">{groupName}</h1>
       </div>
       <div className="w-full flex flex-col items-center gap-30">
@@ -59,7 +64,7 @@ export default async function Page({
               />
             );
           })}
-      </div>
+      </div> */}
     </section>
   );
 }
@@ -72,7 +77,7 @@ function GroupComponent({
   contentList?: Content[];
 }) {
   return (
-    <article className="flex flex-col w-full gap-5" id={tag?.name}>
+    <article className="flex flex-col w-full gap-5">
       <div className="flex w-full">
         <h3 className="w-full border-b-2 border-gray-300 py-2">
           📌{tag?.name}

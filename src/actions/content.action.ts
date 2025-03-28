@@ -1,8 +1,16 @@
-import { notionDatabase } from "@/app/notion";
+'use server';
 import { ParseToContent } from "@/utils/dataPaser";
-import { DatabaseObjectResponse, PageObjectResponse, PartialDatabaseObjectResponse, PartialPageObjectResponse, QueryDatabaseResponse } from "@notionhq/client/build/src/api-endpoints";
+import { DatabaseObjectResponse, PageObjectResponse, PartialDatabaseObjectResponse, PartialPageObjectResponse } from "@notionhq/client/build/src/api-endpoints";
 
-const url = `${process.env.NEXT_PUBLIC_API_NOTION_URL}/databases/${process.env.NEXT_PUBLIC_API_NOTION_DATABASE_ID}/query`;
+const NEXT_PUBLIC_API_NOTION_DATABASE_ID = process.env.NEXT_PUBLIC_API_NOTION_DATABASE_ID;
+const NEXT_PUBLIC_API_NOTION_TOKEN = process.env.NEXT_PUBLIC_API_NOTION_TOKEN;
+const NEXT_PUBLIC_API_NOTION_VERSION = process.env.NEXT_PUBLIC_API_NOTION_VERSION;
+const NEXT_PUBLIC_API_NOTION_URL = process.env.NEXT_PUBLIC_API_NOTION_URL;
+const headers = {
+    "Content-Type": "application/json",
+    "Authorization": `Bearer ${NEXT_PUBLIC_API_NOTION_TOKEN || ""}`,
+    "Notion-Version": NEXT_PUBLIC_API_NOTION_VERSION || ""
+}
 
 export interface Content {
     id?: string;
@@ -15,6 +23,10 @@ export interface Content {
     category?: string;
     subtitle?: string;
     views: number;
+    group?: string;
+    groupId?: string;
+    groupColor?: string;
+    thombnail?: string;
 }
 export interface Tag {
     color?: string;
@@ -23,20 +35,36 @@ export interface Tag {
 
 export type Result = PageObjectResponse | PartialPageObjectResponse | PartialDatabaseObjectResponse | DatabaseObjectResponse;
 
-export async function getContentList() {
-
-    if (!process.env.NEXT_PUBLIC_API_NOTION_DATABASE_ID) {
-        throw new Error("데이터베이스 아이디가 없습니다.");
+export interface RequestBody {
+    filter? : {
+        property?: string;
+        status?: {
+            equals?: string;
+        }
     }
-    const contents: QueryDatabaseResponse = await notionDatabase.databases.query({
-        database_id: process.env.NEXT_PUBLIC_API_NOTION_DATABASE_ID,
-    });
+    
+}
 
-    const result: Content[] = contents.results.map((content: Result):Content => {
+export async function getContentList(body:RequestBody):Promise<Content[]> {
+    try {
+        const url = `${NEXT_PUBLIC_API_NOTION_URL}/v1/databases/${NEXT_PUBLIC_API_NOTION_DATABASE_ID}`;
+        const response = await fetch(`${url}/query`, {
+            method: "POST",
+            headers,
+            body: JSON.stringify(body)
+            
+        })
+        const contentList = await response.json().then((res)=>res.results);
+        console.log(contentList);
 
-        return ParseToContent(content);
-    });
-    console.log(result);
 
-    return result.filter((content:Content)=>content.status === "게시");
+
+        const result: Content[] = contentList.map((content: Result): Content => {
+            return ParseToContent(content);
+        });
+
+        return result;
+    } catch (e) {
+        throw new Error(` 데이터를 불러올 수 없습니다. : ${e}`);
+    }
 }

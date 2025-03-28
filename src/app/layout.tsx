@@ -1,7 +1,6 @@
 import Footer from "@/components/footer";
 import "./globals.css";
 import TopNavbar from "@/components/top-navbar";
-import Link from "next/link";
 
 export default function RootLayout({
   children,
