@@ -12,8 +12,8 @@ import { Code } from "react-notion-x/build/third-party/code";
 import { Collection } from "react-notion-x/build/third-party/collection";
 import { Equation } from "react-notion-x/build/third-party/equation";
 import { Modal } from "react-notion-x/build/third-party/modal";
-import { getContentDetailFetch } from "@/actions/content-detail.action";
-import { NotionPageInfo, viewsUpdateFetch } from "@/app/notion";
+import { getContentDetailFetch, viewsUpdateFetch } from "@/actions/notion";
+import { Content } from "@/utils/dataPaser";
 
 function SkeletonUI() {
   return (
@@ -39,10 +39,8 @@ function SkeletonUI() {
 
 export default function PostedDetail({
   postedId,
-  pageInfo,
 }: {
   postedId: string;
-  pageInfo: NotionPageInfo;
 }) {
   const [recordMap, setRecordMap] = useState<ExtendedRecordMap | null>(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -89,7 +87,7 @@ export function NotionPage({ recordMap }: { recordMap: ExtendedRecordMap }) {
   );
 }
 
-export function Views({ pageInfo,paramsId }: { pageInfo: NotionPageInfo ,paramsId:string}) {
+export function Views({ pageInfo,paramsId }: { pageInfo: Content ,paramsId:string}) {
   const [views, setViews] = useState(0);
 
   useEffect(()=>{
@@ -99,7 +97,7 @@ export function Views({ pageInfo,paramsId }: { pageInfo: NotionPageInfo ,paramsI
       setViews(result);
     }
     viewUpdate();
-  },[])
+  },[pageInfo,paramsId])
   
   return <p className="text-xs text-gray-400">조회수 {views > 0 ?views : ""}</p>;
 }

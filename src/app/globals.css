@@ -40,6 +40,26 @@ h3 {
 h4 {
     @apply text-lg font-bold;
 }
+.notion.notion-page{
+    border: 2px solid #b2b2b2;
+    padding-top: 10px;
+}
+.notion figure{
+    padding: 10px;
+    border-radius: 10px;
+    background-color: #cfcfcf;
+    box-shadow: 3px 3px 5px rgba(0,0,0,0.3);
+}
+
+.notion .notion-code{
+    background-color: #2d2d2d;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 3px 3px 5px rgba(0,0,0,0.3);
+}
+.notion .notion-code .comment{
+    color: #6a9955;
+}
 
 .opacity-gb {
     background-color: rgba(0, 0, 0, 0.75);

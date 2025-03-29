@@ -1,6 +1,6 @@
-import { Content } from "@/actions/content.action";
+'use client'
 import createAtTimeCalc from "@/utils/createAtTimeCalc";
-import dayjs from "dayjs";
+import { Content } from "@/utils/dataPaser";
 import Image from "next/image";
 import Link from "next/link";
 

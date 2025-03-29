@@ -1,5 +1,6 @@
-import { Content, getContentList, Tag } from "@/actions/content.action";
+import { getContentList } from "@/actions/notion";
 import CategoryItemCard from "@/components/card/category-item-card";
+import { Content, Tag } from "@/utils/dataPaser";
 import { FaArrowDown } from "react-icons/fa";
 
 export default async function Page({
@@ -47,7 +48,7 @@ export default async function Page({
         {tagList &&
           tagList.map((tag: Tag, idx: number) => {
             const tagContentList = groupContentList.filter((content:Content) =>{
-              let tagString = content.tags?.map((tag:Tag)=>tag.name).join();
+              const tagString = content.tags?.map((tag:Tag)=>tag.name).join();
               return tagString && tagString.includes(tag.name);
             });
 

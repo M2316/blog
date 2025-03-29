@@ -1,10 +1,17 @@
-import { Content, getContentList } from "@/actions/content.action";
+import { getContentList } from "@/actions/notion";
 import MainGroupCard from "@/components/card/main-group-card";
 import MainItemCard from "@/components/card/main-item-card";
 import MainCarousel from "@/components/main-carousel";
-import colorParser,{ BLOG_COLOR } from "@/utils/colorParser";
+import colorParser, { BLOG_COLOR } from "@/utils/colorParser";
+import { Content } from "@/utils/dataPaser";
 
+
+
+
+
+// 이 컴포넌트는 기본적으로 서버 컴포넌트로 동작합니다.
 export default async function Home() {
+  // 데이터를 서버에서 가져옵니다.
   const contentList = await getContentList({
     filter: {
       property: "상태",
@@ -14,6 +21,7 @@ export default async function Home() {
     },
   });
 
+  // 최신 글과 인기 글을 정렬
   const latestContentList = JSON.parse(JSON.stringify(contentList))
     .sort((a: Content, b: Content) => {
       return (
@@ -28,6 +36,7 @@ export default async function Home() {
     })
     .slice(0, 6);
 
+  // 그룹 데이터를 생성
   const contentGroup = [
     ...new Set(contentList.map((content: Content) => content.groupId)),
   ];
@@ -86,11 +95,15 @@ export default async function Home() {
           <div className="flex flex-col gap-4">
             {groupList &&
               groupList.map((group, idx) => (
-                <MainGroupCard key={group.id} group={{
-                  ...group,
-                  id: group.id || "unknown-id", // 기본값 설정
-                  color: colorParser(group.color) as keyof typeof BLOG_COLOR, // 기본값 설정
-                }} idx={idx} />
+                <MainGroupCard
+                  key={`${idx}-${group.id}`}
+                  group={{
+                    ...group,
+                    id: group.id || "unknown-id", // 기본값 설정
+                    color: colorParser(group.color) as keyof typeof BLOG_COLOR, // 기본값 설정
+                  }}
+                  idx={idx}
+                />
               ))}
           </div>
         </div>

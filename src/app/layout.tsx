@@ -12,7 +12,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="">
-        <Script strategy="beforeInteractive">
+        <Script id="generate-uuid" strategy="beforeInteractive">
           {`
             //방문자를 구분하기 위한 uuid 발급 및 localstoreage에 삽입
             const uuid = crypto.randomUUID();

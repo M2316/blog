@@ -3,10 +3,10 @@ import Link from "next/link";
 
 export default function NextContentCard() {
   return (
-    <Link className="w-full " href="/posted/pleaseInputPostedID~!">
-      <div className="relative">
+    <Link className="w-full" href="/posted/pleaseInputPostedID~!">
+      <div className="relative shadow-xl rounded-3xl overflow-hidden">
         <Image
-          className="rounded-3xl h-40"
+          className="h-40"
           alt="bg-img"
           src="/back-ground-5.jpg"
           width={400}
