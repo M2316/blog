@@ -2,12 +2,10 @@ import { getContentList } from "@/actions/notion";
 import MainGroupCard from "@/components/card/main-group-card";
 import MainItemCard from "@/components/card/main-item-card";
 import MainCarousel from "@/components/main-carousel";
-import colorParser, { BLOG_COLOR } from "@/utils/colorParser";
+import colorParser,{ BLOG_COLOR } from "@/utils/colorParser";
 import { Content } from "@/utils/dataPaser";
 
-
-
-
+export const dynamic = "force-dynamic";
 
 // 이 컴포넌트는 기본적으로 서버 컴포넌트로 동작합니다.
 export default async function Home() {
@@ -80,7 +78,7 @@ export default async function Home() {
                 ))}
             </div>
           </div>
-          <div>
+          {/* <div>
             <h3 className="my-(--header-margin-3)">FIX. 서비스 개선 사항 🛠️</h3>
             <div className="flex flex-wrap justify-between gap-3">
               {hotContentList &&
@@ -88,7 +86,7 @@ export default async function Home() {
                   <MainItemCard {...content} key={`fix ${content.id}`} />
                 ))}
             </div>
-          </div>
+          </div> */}
         </div>
         <div className="flex flex-col w-2/6 pl-5">
           <h3 className="my-(--header-margin-3)">폴더 📂</h3>
