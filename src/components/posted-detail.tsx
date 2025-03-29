@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { NotionRenderer } from "react-notion-x";
 import { ExtendedRecordMap } from "notion-types";
 import "react-notion-x/src/styles.css";
@@ -8,10 +8,12 @@ import "prismjs/themes/prism-tomorrow.css";
 import "katex/dist/katex.min.css";
 import Link from "next/link";
 import Image from "next/image";
-import { Code } from 'react-notion-x/build/third-party/code'
-import { Collection } from 'react-notion-x/build/third-party/collection'
-import { Equation } from 'react-notion-x/build/third-party/equation'
-import { Modal } from 'react-notion-x/build/third-party/modal'
+import { Code } from "react-notion-x/build/third-party/code";
+import { Collection } from "react-notion-x/build/third-party/collection";
+import { Equation } from "react-notion-x/build/third-party/equation";
+import { Modal } from "react-notion-x/build/third-party/modal";
+import { getContentDetailFetch } from "@/actions/content-detail.action";
+import { NotionPageInfo, viewsUpdateFetch } from "@/app/notion";
 
 function SkeletonUI() {
   return (
@@ -35,16 +37,21 @@ function SkeletonUI() {
   );
 }
 
-export default function PostedDetail({ postedId }: { postedId: string }) {
-  const [recordMap, setRecordMap] = React.useState<ExtendedRecordMap | null>(null);
-  const [isLoading, setIsLoading] = React.useState(true);
+export default function PostedDetail({
+  postedId,
+  pageInfo,
+}: {
+  postedId: string;
+  pageInfo: NotionPageInfo;
+}) {
+  const [recordMap, setRecordMap] = useState<ExtendedRecordMap | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
 
-  React.useEffect(() => {
+  useEffect(() => {
     async function fetchData() {
       try {
         setIsLoading(true);
-        const posted = await fetch(`/api/notion-content-detail?rootPageId=${postedId}`);
-        const data = await posted.json();
+        const data = await getContentDetailFetch<ExtendedRecordMap>(postedId);
         setRecordMap(data);
       } finally {
         setIsLoading(false);
@@ -54,14 +61,15 @@ export default function PostedDetail({ postedId }: { postedId: string }) {
   }, [postedId]);
 
   if (isLoading) {
-  return <div className="w-full flex justify-center">
-      <SkeletonUI />
-      </div>;
-    
+    return (
+      <div className="w-full flex justify-center">
+        <SkeletonUI />
+      </div>
+    );
   }
-  
+
   if (!recordMap) return null;
-  
+
   return <NotionPage recordMap={recordMap} />;
 }
 
@@ -79,4 +87,19 @@ export function NotionPage({ recordMap }: { recordMap: ExtendedRecordMap }) {
       }}
     />
   );
+}
+
+export function Views({ pageInfo,paramsId }: { pageInfo: NotionPageInfo ,paramsId:string}) {
+  const [views, setViews] = useState(0);
+
+  useEffect(()=>{
+    const viewUpdate = async ()=>{
+      const userUuid = localStorage.getItem("jealth_blog_uuid") as string;
+      const result = await viewsUpdateFetch(paramsId, pageInfo, userUuid);
+      setViews(result);
+    }
+    viewUpdate();
+  },[])
+  
+  return <p className="text-xs text-gray-400">조회수 {views > 0 ?views : ""}</p>;
 }

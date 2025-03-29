@@ -1,6 +1,8 @@
-import { getContentList } from "@/actions/content.action";
+import { getPostedInfo } from "@/actions/content-detail.action";
+import { getNotionPage, getPageInfo, viewsUpdateFetch } from "@/app/notion";
 import NextContentCard from "@/components/card/next-content-card";
-import PostedDetail from "@/components/posted-detail";
+import PostedDetail, { Views } from "@/components/posted-detail";
+import createAtTimeCalc from "@/utils/createAtTimeCalc";
 
 
 
@@ -8,26 +10,27 @@ export default async function Page({params}: {params: Promise<{id:string}>}) {
   
   const {id : paramsId} = await params;
 
-  
+  const pageInfo = await getPageInfo(paramsId);
 
   return (
     <section className="flex flex-col items-center w-full gap-10">
       <div className="flex flex-col items-center w-full">
-        <h2 className="my-(--header-margin-1)">{`title box ${paramsId}`}</h2>
+        <h2 className="my-(--header-margin-1)">{`${pageInfo.title}`}</h2>
         <div className="flex justify-between w-full">
           <div className="flex flex-col gap-2">
-            <p className="">2025년 01월 23일</p>
-            <p className="text-xs text-gray-400">조회수 243회</p>
+            <p className="">{createAtTimeCalc(pageInfo.createdTime)}</p>
+            {/* <p className="text-xs text-gray-400">조회수 {pageInfo.views}</p> */}
+            <Views pageInfo={pageInfo} paramsId={paramsId}/>
           </div>
           <div className="flex justify-center">
             <p className="text-sm text-gray-400">
-              마지막 수정 : {`2025년 01월 23일`} 13:42:12
+              마지막 수정 : {createAtTimeCalc(pageInfo.lastEditedTime)}
             </p>
           </div>
         </div>
       </div>
       <article className="w-full flex justify-center min-h-200 p-10 border border-gray-300 rounded-xl bg-gray-100 shadow-md">
-        <PostedDetail postedId={paramsId} />
+        <PostedDetail postedId={paramsId} pageInfo={pageInfo} />
       </article>
       <div className="flex flex-col justify-start w-full gap-3">
         <h3 className="font-bold my-header-margin-3 flex w-full">
@@ -48,3 +51,5 @@ export default async function Page({params}: {params: Promise<{id:string}>}) {
     </section>
   );
 }
+
+

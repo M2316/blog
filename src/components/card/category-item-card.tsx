@@ -1,5 +1,5 @@
 import { Content } from "@/actions/content.action";
-import colorPaser from "@/utils/colorPaser";
+import colorParser from "@/utils/colorParser";
 import createAtTimeCalc from "@/utils/createAtTimeCalc";
 import dayjs from "dayjs";
 import Image from "next/image";
@@ -37,7 +37,7 @@ export default function CategoryItemCard({
                 key={`tag-${idx}`}
                 className={`px-1.5 py-0.5 text-[11px] rounded font-bold`}
                 style={{
-                  backgroundColor: colorPaser(tag.color || "default"),
+                  backgroundColor: colorParser(tag.color || "default"),
                   color: "#000000",
                 }}
               >

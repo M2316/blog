@@ -12,9 +12,6 @@ export const BLOG_COLOR = {
     brown: "#E9D6B3", // 파스텔 브라운
   };
 
-export default function colorPaser(color: string) {
-
-    
-
+export default function colorParser(color: string) {
     return BLOG_COLOR[color as keyof typeof BLOG_COLOR] || BLOG_COLOR.default;
 };

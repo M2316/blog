@@ -2,7 +2,7 @@ import { Content, getContentList } from "@/actions/content.action";
 import MainGroupCard from "@/components/card/main-group-card";
 import MainItemCard from "@/components/card/main-item-card";
 import MainCarousel from "@/components/main-carousel";
-import colorPaser, { BLOG_COLOR } from "@/utils/colorPaser";
+import colorParser,{ BLOG_COLOR } from "@/utils/colorParser";
 
 export default async function Home() {
   const contentList = await getContentList({
@@ -89,7 +89,7 @@ export default async function Home() {
                 <MainGroupCard key={group.id} group={{
                   ...group,
                   id: group.id || "unknown-id", // 기본값 설정
-                  color: colorPaser(group.color) as keyof typeof BLOG_COLOR, // 기본값 설정
+                  color: colorParser(group.color) as keyof typeof BLOG_COLOR, // 기본값 설정
                 }} idx={idx} />
               ))}
           </div>

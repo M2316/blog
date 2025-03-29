@@ -1,4 +1,4 @@
-import colorPaser, { BLOG_COLOR } from "@/utils/colorPaser";
+import colorParser, { BLOG_COLOR } from "@/utils/colorParser";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -12,7 +12,7 @@ interface PropsGroup {
 }
 
 export default function MainGroupCard({ group, idx }: { group: PropsGroup; idx: number }) {
-  const bgColor = colorPaser(group.color || "default");
+  const bgColor = colorParser(group.color || "default");
 
   return (
     <Link

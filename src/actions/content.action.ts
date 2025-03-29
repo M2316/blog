@@ -1,5 +1,6 @@
 'use server';
 import { ParseToContent } from "@/utils/dataPaser";
+import { getErrorMessage } from "@/utils/errorParser";
 import { DatabaseObjectResponse, PageObjectResponse, PartialDatabaseObjectResponse, PartialPageObjectResponse } from "@notionhq/client/build/src/api-endpoints";
 
 const NEXT_PUBLIC_API_NOTION_DATABASE_ID = process.env.NEXT_PUBLIC_API_NOTION_DATABASE_ID;
@@ -65,6 +66,6 @@ export async function getContentList(body:RequestBody):Promise<Content[]> {
 
         return result;
     } catch (e) {
-        throw new Error(` 데이터를 불러올 수 없습니다. : ${e}`);
+        throw new Error(` 데이터를 불러올 수 없습니다. : ${getErrorMessage(e)}`);
     }
 }

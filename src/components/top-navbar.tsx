@@ -3,6 +3,8 @@ import Link from "next/link";
 import { BiSearch } from "react-icons/bi";
 
 export default function TopNavbar() {
+
+  
   return (
     <nav className="py-4 px-20 bg-white shadow-md fixed top-0 w-full z-10">
       <ul className="max-w-6xl flex justify-between mx-auto">
@@ -19,3 +21,5 @@ export default function TopNavbar() {
     </nav>
   );
 }
+
+
