@@ -1,73 +1,67 @@
 'use client';
+
+import React from "react";
 import { NotionRenderer } from "react-notion-x";
 import { ExtendedRecordMap } from "notion-types";
-import "react-notion-x/src/styles.css";
-import "prismjs/themes/prism-tomorrow.css";
 import "react-notion-x/src/styles.css";
 import "prismjs/themes/prism-tomorrow.css";
 import "katex/dist/katex.min.css";
 import Link from "next/link";
 import Image from "next/image";
-import { useEffect, useState } from "react";
-import dynamic from 'next/dynamic'
-import { getContentDetailFetch } from "@/actions/content-detail.action";
+import { Code } from 'react-notion-x/build/third-party/code'
+import { Collection } from 'react-notion-x/build/third-party/collection'
+import { Equation } from 'react-notion-x/build/third-party/equation'
+import { Modal } from 'react-notion-x/build/third-party/modal'
 
-const Code = dynamic(() =>
-  import('react-notion-x/build/third-party/code').then((m) => m.Code)
-)
-const Collection = dynamic(() =>
-  import('react-notion-x/build/third-party/collection').then(
-    (m) => m.Collection
-  )
-)
-const Equation = dynamic(() =>
-  import('react-notion-x/build/third-party/equation').then((m) => m.Equation)
-)
-// const Pdf = dynamic(
-//   () => import('react-notion-x/build/third-party/pdf').then((m) => m.Pdf),
-//   {
-//     ssr: false
-//   }
-// )
-const Modal = dynamic(
-  () => import('react-notion-x/build/third-party/modal').then((m) => m.Modal),
-  {
-    ssr: false
-  }
-)
+function SkeletonUI() {
+  return (
+    <div className="animate-pulse space-y-4 w-full">
+      <div className="h-100 bg-gray-400 rounded w-full"></div>
+      <div className="h-12 bg-gray-400 rounded w-3/4"></div>
+      <div className="space-y-2">
+        <div className="h-4 bg-gray-400 rounded w-full"></div>
+        <div className="h-4 bg-gray-400 rounded w-5/6"></div>
+        <div className="h-4 bg-gray-400 rounded w-4/6"></div>
+      </div>
+      <div className="space-y-2">
+        <div className="h-4 bg-gray-400 rounded w-full"></div>
+        <div className="h-4 bg-gray-400 rounded w-5/6"></div>
+      </div>
+      <div className="space-y-2">
+        <div className="h-4 bg-gray-400 rounded w-full"></div>
+        <div className="h-4 bg-gray-400 rounded w-4/6"></div>
+      </div>
+    </div>
+  );
+}
 
 export default function PostedDetail({ postedId }: { postedId: string }) {
-  
+  const [recordMap, setRecordMap] = React.useState<ExtendedRecordMap | null>(null);
+  const [isLoading, setIsLoading] = React.useState(true);
 
-  
-
-  const [recordMap, setRecordMap] = useState<ExtendedRecordMap>();
-
-  useEffect(() => {
-
-    const fetchPosted = async (postedId : string)=>{
-      const recordMap = getContentDetailFetch<ExtendedRecordMap>(postedId);
-      // setRecordMap(recordMap);
+  React.useEffect(() => {
+    async function fetchData() {
+      try {
+        setIsLoading(true);
+        const posted = await fetch(`/api/notion-content-detail?rootPageId=${postedId}`);
+        const data = await posted.json();
+        setRecordMap(data);
+      } finally {
+        setIsLoading(false);
+      }
     }
-    // const fetchPosted = async (postedId: string)=> {
-    //   const posted = await fetch(`/api/notion-content-detail?rootPageId=${postedId}`);
-    //   const recordMap: ExtendedRecordMap = await posted.json().then((data:ExtendedRecordMap)=>data);
-    //   setRecordMap(recordMap);
-    // };
-    fetchPosted(postedId);
-  });
+    fetchData();
+  }, [postedId]);
 
-  if (!recordMap) {
-    return <div className="skeleton">
-    <div className="skeleton-header"></div>
-    <div className="skeleton-content">
-      <div className="skeleton-line"></div>
-      <div className="skeleton-line"></div>
-      <div className="skeleton-line"></div>
-    </div>
-  </div>;;
+  if (isLoading) {
+  return <div className="w-full flex justify-center">
+      <SkeletonUI />
+      </div>;
+    
   }
-
+  
+  if (!recordMap) return null;
+  
   return <NotionPage recordMap={recordMap} />;
 }
 

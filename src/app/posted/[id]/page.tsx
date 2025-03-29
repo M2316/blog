@@ -1,3 +1,4 @@
+import { getContentList } from "@/actions/content.action";
 import NextContentCard from "@/components/card/next-content-card";
 import PostedDetail from "@/components/posted-detail";
 
@@ -6,6 +7,8 @@ import PostedDetail from "@/components/posted-detail";
 export default async function Page({params}: {params: Promise<{id:string}>}) {
   
   const {id : paramsId} = await params;
+
+  
 
   return (
     <section className="flex flex-col items-center w-full gap-10">
