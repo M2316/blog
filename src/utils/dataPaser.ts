@@ -1,4 +1,5 @@
 import { NotionPage } from "@/actions/notion";
+import { CommentObjectResponse } from "@notionhq/client/build/src/api-endpoints";
 
 export interface Content {
     id: string;
@@ -21,6 +22,21 @@ export interface Tag {
     color?: string;
     name: string;
 }
+
+export interface NotionComment {
+    created_by: string;
+    created_time: string;
+    discussion_id: string;
+    id: string;
+    last_edited_time: string;
+    object: string;
+    parent: {
+        page_id: string;
+        type: string;
+    };
+    rich_text: string[];
+}
+
 
 export const getPageProperties = (pageData: NotionPage) => {
 

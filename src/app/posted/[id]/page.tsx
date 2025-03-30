@@ -1,5 +1,6 @@
 import { getPageInfo } from "@/actions/notion";
 import NextContentCard from "@/components/card/next-content-card";
+import ContentComment from "@/components/content-comment";
 import PostedDetail, { Views } from "@/components/posted-detail";
 import createAtTimeCalc from "@/utils/createAtTimeCalc";
 
@@ -47,6 +48,7 @@ export default async function Page({params}: {params: Promise<{id:string}>}) {
           </li>
         </ul>
       </div>
+      <ContentComment paramsId={paramsId}/>
     </section>
   );
 }

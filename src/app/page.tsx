@@ -79,7 +79,7 @@ export default async function Home() {
             </div>
           </div>
           {/* <div>
-            <h3 className="my-(--header-margin-3)">FIX. 서비스 개선 사항 🛠️</h3>
+            <h3 className="my-(--header-margin-3)">FIX.JEALTH 서비스 개선 사항 🛠️</h3>
             <div className="flex flex-wrap justify-between gap-3">
               {hotContentList &&
                 hotContentList.map((content: Content) => (

@@ -57,7 +57,7 @@ export default function SideNav(){
   
   
     return (
-        <div className="flex items-center justify-center fixed top-1/2 transform -translate-y-1/2 right-32 text-white p-5 border-y-4 border-gray-300 hover:border-black 3xl:right-110">
+        <div className="flex items-center justify-center fixed top-1/2 transform -translate-y-1/2 right-32 text-white p-5 border-y-4 border-gray-300 hover:border-black 3xl:right-110 bg-[#fbfbfb] shadow-lg rounded-lg z-10">
           <ul className="w-full">
             <li className="flex flex-col justify-center items-around gap-4">  
               {
