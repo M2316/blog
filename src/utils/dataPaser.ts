@@ -91,7 +91,6 @@ export const getPageProperties = (pageData: NotionPage) => {
 
 
     if ("select" in properties["그룹"]) {
-        console.log("그룹", properties)
         pageProperties["group"] = properties["그룹"].select!.name;
         pageProperties["groupId"] = properties["그룹"].select!.id;
         pageProperties["groupColor"] = properties["그룹"].select!.color;

@@ -11,7 +11,7 @@ export default function RootLayout({
   
   return (
     <html lang="en">
-      <body className="">
+      <body>
         <Script id="generate-uuid" strategy="beforeInteractive">
           {`
             //방문자를 구분하기 위한 uuid 발급 및 localstoreage에 삽입
@@ -23,9 +23,11 @@ export default function RootLayout({
         </Script>
         
         <TopNavbar />
-        <div className="py-20 max-w-6xl flex justify-center m-auto relative">
-          {children}
-          
+        <div id="globalLayout" className="w-full">
+          <div className="py-20 max-w-6xl flex justify-center m-auto relative">
+            {children}
+            
+          </div>
         </div>
         <Footer />
       </body>

@@ -4,8 +4,9 @@ import { Client } from '@notionhq/client';
 import { NotionAPI } from 'notion-client';
 import { CommentObjectResponse, PageObjectResponse } from '@notionhq/client/build/src/api-endpoints';
 import { Content, getPageProperties } from '@/utils/dataPaser';
+import { get } from 'http';
 
-export interface NotionPage extends PageObjectResponse {
+export interface NotionPage extends PageObjectResponse{
   query?: string;
 }
 
@@ -173,5 +174,27 @@ export const getCommentList = async (pageId: string) => {
     return commentList;
   } catch (err) {
     throw new Error(`댓글 목록 요청이 실패 했습니다.🚫 \n reason : ${getErrorMessage(err)}`)
+  }
+}
+
+export const titleSearchFetch = async <T>(findTitle:string):Promise<T>=>{
+  try{
+    const result = await notionDatabase.search({
+      query: findTitle,
+      filter: {
+        value: 'page',
+        property: 'object'
+      },
+      sort: {
+        direction: 'ascending',
+        timestamp: 'last_edited_time'
+      },
+    }).then((res)=> res.results);
+    const contentList = result.map((content)=>{
+      return getPageProperties(content as NotionPage);
+    });
+    return contentList as T;
+  }catch(err){
+    throw new Error(`제목 검색 요청이 실패 했습니다.🚫 \n reason : ${getErrorMessage(err)}`)
   }
 }
