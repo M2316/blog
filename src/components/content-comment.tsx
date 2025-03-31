@@ -2,7 +2,6 @@
 
 import { Comment, CommentSubmitForm, commentUpdateFetch, getCommentList } from "@/actions/notion";
 import createAtTimeCalc from "@/utils/createAtTimeCalc";
-import { CommentObjectResponse } from "@notionhq/client/build/src/api-endpoints";
 import { useEffect, useRef, useState } from "react";
 
 export default function ContentComment({paramsId}:{paramsId:string}) {

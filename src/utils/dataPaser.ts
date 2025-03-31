@@ -1,5 +1,4 @@
 import { NotionPage } from "@/actions/notion";
-import { CommentObjectResponse } from "@notionhq/client/build/src/api-endpoints";
 
 export interface Content {
     id: string;

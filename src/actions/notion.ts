@@ -4,7 +4,6 @@ import { Client } from '@notionhq/client';
 import { NotionAPI } from 'notion-client';
 import { CommentObjectResponse, PageObjectResponse } from '@notionhq/client/build/src/api-endpoints';
 import { Content, getPageProperties } from '@/utils/dataPaser';
-import { get } from 'http';
 
 export interface NotionPage extends PageObjectResponse{
   query?: string;
@@ -159,7 +158,7 @@ export const getCommentList = async (pageId: string) => {
     });
     const commentList = response.results.map((comment) => {
       const commentData = comment.rich_text.map((item) => item.plain_text).join(" ");
-      const [writer, _password, content] = commentData.split("%SEPARATOR%");
+      const [writer, , content] = commentData.split("%SEPARATOR%");
       return {
         id: comment.id,
         created_time: comment.created_time,

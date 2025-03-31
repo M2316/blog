@@ -31,7 +31,7 @@ export default function TopNavbar() {
       searchBarRef.current.focus();
       searchBarRef.current.value = searchQuery;
     }
-    document.getElementById("globalLayout")?.addEventListener("click", (e) => {
+    document.getElementById("globalLayout")?.addEventListener("click", () => {
       setSearchBarIsOpen(false);
     });
   }, [searchBarIsOpen]);

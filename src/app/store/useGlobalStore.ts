@@ -8,9 +8,9 @@ interface GlobalState {
 
 export const useGlobalStore = create<GlobalState>()(
     persist(
-        (set,get)=>({
+        (set)=>({
             searchBarIsOpen:false,
-            setSearchBarIsOpen:(isOpen:boolean)=>set((state)=>({
+            setSearchBarIsOpen:(isOpen:boolean)=>set(()=>({
                 searchBarIsOpen:isOpen
             })),
         }),{
