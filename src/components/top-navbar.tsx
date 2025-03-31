@@ -79,25 +79,25 @@ export default function TopNavbar() {
     router.push(`/posted/${postedId}`);
   };
   return (
-    <nav className="py-4 px-20 bg-white shadow-md fixed top-0 w-full z-10">
+    <nav className="py-4 px-5 bg-white shadow-md fixed top-0 w-full z-10 sm:px-20">
       <ul className="max-w-6xl flex justify-between mx-auto">
         <li className="text-black flex items-center justify-center">
           <Link href="/" className="flex items-center">
             <Image src="/logo.png" alt="logo" width={40} height={40} />
-            <p className="ml-3 font-bold text-2xl">JEALTH BLOG</p>
+            <p className="ml-3 font-bold text-2xl hidden sm:block">JEALTH BLOG</p>
           </Link>
         </li>
-        <li className="flex items-center justify-center relative">
+        <li className="flex items-center justify-end relative w-full">
           {searchBarIsOpen && (
             <>
               <input
                 ref={searchBarRef}
                 type="text"
                 placeholder="Search..."
-                className="bg-white w-150 p-3 px-10 border border-gray-300 rounded shadow-md -right-3 absolute z-20 outline-none focus:border-gray-400 focus:ring-gray-400 z-10"
+                className="bg-white w-full sm:w-150 p-3 px-10 border border-gray-300 rounded shadow-md -right-3 absolute z-20 outline-none focus:border-gray-400 focus:ring-gray-400 z-10"
                 onChange={debouncedFetchHandler}
               />
-              <ul className="bg-white w-150 p-3 px-7 border border-gray-300 rounded shadow-md -right-3 top-10 absolute z-20 outline-none focus:border-gray-400 focus:ring-gray-400 z-10 max-h-[300px] overflow-y-auto">
+              <ul className="bg-white w-full sm:w-150 p-3 px-7 border border-gray-300 rounded shadow-md -right-3 top-10 absolute z-20 outline-none focus:border-gray-400 focus:ring-gray-400 z-10 max-h-[300px] overflow-y-auto">
                 {isSearchLoading && (
                   <div className="flex items-center justify-start w-full h-full">
                     <p className="text-gray-400">Loading...</p>
@@ -112,7 +112,7 @@ export default function TopNavbar() {
                     >
                       <button
                         onClick={() => searchListClickHandler(item.id)}
-                        className="w-full h-full z-20 hover:bg-gray-200 cursor-pointer px-3 p-1 rounded-md flex items-center justify-start"
+                        className="w-full h-full z-20 hover:bg-gray-200 cursor-pointer px-3 p-1 rounded-md flex items-center justify-start wrap"
                       >
                         {item.title}
                       </button>
