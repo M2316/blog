@@ -44,7 +44,7 @@ export default async function Page({
       <div className="flex w-full justify-center">
         <h1 className="my-(--header-margin-1)">{groupName}</h1>
       </div>
-      <div className="w-full flex flex-col items-center gap-30">
+      <div className="w-full flex flex-col items-center gap-30 px-4 sm:px-0">
         {tagList &&
           tagList.map((tag: Tag, idx: number) => {
             const tagContentList = groupContentList.filter((content:Content) =>{
@@ -79,7 +79,7 @@ function GroupComponent({
           📌{tag?.name}
         </h3>
       </div>
-      <div className="grid grid-cols-4 gap-5">
+      <div className="grid grid-cols-1 sm:grid-cols-4 gap-5">
         {contentList &&
           contentList.map((content: Content, idx: number) => {
             return (

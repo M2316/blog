@@ -57,13 +57,15 @@ export default function SideNav(){
   
   
     return (
-        <div className="flex items-center justify-center fixed top-1/2 transform -translate-y-1/2 right-32 text-white p-5 border-y-4 border-gray-300 hover:border-black 3xl:right-110 bg-[#fbfbfb] shadow-lg rounded-lg z-10">
+        <div className="flex items-center justify-center fixed top-70 sm:top-1/2 transform -translate-y-1/2 right-2 sm:right-32 text-white p-5 border-y-4 border-gray-300 hover:border-black 3xl:right-110 bg-[#fbfbfb] shadow-lg rounded-lg z-10">
           <ul className="w-full">
             <li className="flex flex-col justify-center items-around gap-4">  
               {
                 groupName && 
                 <h3 className="text-gray-400 font-bold hover:text-black hover:border-b-2 w-full" data-id={id}>
-                  {groupName}
+                  <Link href={`#${groupName}`}>
+                    {groupName}
+                  </Link>
                 </h3>
               }      
               {

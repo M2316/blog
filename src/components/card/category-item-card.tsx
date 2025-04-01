@@ -14,11 +14,11 @@ export default function CategoryItemCard({
   return (
     <Link
       href={`/posted/${postedId}`}
-      className="flex flex-col justify-center items-center w-full shadow-md rounded-3xl p-4 bg-[var(--color-card-background)]"
+      className="flex flex-row sm:flex-col justify-center items-center w-full shadow-md rounded-3xl p-4 bg-[var(--color-card-background)]"
     >
       <div className="relative">
         <Image
-          className="rounded-3xl h-40"
+          className="rounded-3xl h-20 w-30 sm:h-40 sm:w-full object-cover"
           alt="bg-img"
           src={`${content.thombnail || "/jealth_logo_v3.png"}`}
           width={400}
@@ -28,7 +28,7 @@ export default function CategoryItemCard({
           조회수 {content.views}
         </p>
       </div>
-      <div className="w-full flex flex-col items-start">
+      <div className="w-full flex flex-col items-start px-3 sm:px-0">
         <p className="flex gap-2 py-1 item-center mt-1">
           {content.tags &&
             content.tags.map((tag, idx) => (
