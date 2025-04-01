@@ -58,11 +58,11 @@ export default async function Home() {
   return (
     <div className="flex flex-col items-center min-h-screen w-full">
       <MainCarousel />
-      <div className="flex w-full justify-between ">
-        <div className="flex flex-col w-4/6 gap-10">
+      <div className="flex flex-col-reverse justify-start items-center sm:flex-row sm:items-start w-full gap-5">
+        <div className="flex flex-col w-full sm:w-4/6 gap-2 sm:gap-10">
           <div>
-            <h3 className="my-(--header-margin-3)">NEW. 최근 올라온 글 🚀</h3>
-            <div className="flex flex-wrap justify-between gap-3">
+            <h3 className="my-(--header-margin-3) px-4">NEW. 최근 올라온 글 🚀</h3>
+            <div className="flex flex-wrap">
               {latestContentList &&
                 latestContentList.map((content: Content) => (
                   <MainItemCard {...content} key={`latest ${content.id}`} />
@@ -70,8 +70,8 @@ export default async function Home() {
             </div>
           </div>
           <div>
-            <h3 className="my-(--header-margin-3)">HOT. 가장 인기있는 글 🔥</h3>
-            <div className="flex flex-wrap justify-between gap-3">
+            <h3 className="my-(--header-margin-3) px-4">HOT. 가장 인기있는 글 🔥</h3>
+            <div className="flex flex-wrap">
               {hotContentList &&
                 hotContentList.map((content: Content) => (
                   <MainItemCard {...content} key={`hot ${content.id}`} />
@@ -79,18 +79,18 @@ export default async function Home() {
             </div>
           </div>
           {/* <div>
-            <h3 className="my-(--header-margin-3)">FIX.JEALTH 서비스 개선 사항 🛠️</h3>
-            <div className="flex flex-wrap justify-between gap-3">
-              {hotContentList &&
+            <h3 className="my-(--header-margin-3) px-4">FIX.JEALTH 서비스 개선 사항 🛠️</h3>
+            <div className="flex flex-wrap">
+            {hotContentList &&
                 hotContentList.map((content: Content) => (
                   <MainItemCard {...content} key={`fix ${content.id}`} />
                 ))}
             </div>
           </div> */}
         </div>
-        <div className="flex flex-col w-2/6 pl-5">
-          <h3 className="my-(--header-margin-3)">폴더 📂</h3>
-          <div className="flex flex-col gap-4">
+        <div className="flex flex-col w-full sm:w-2/6 items-center">
+          <h3 className="my-(--header-margin-3) w-full text-left px-14 sm:px-8">폴더 📂</h3>
+          <div className="flex flex-col gap-2 sm:gap-4 w-full px-14 sm:px-8">
             {groupList &&
               groupList.map((group, idx) => (
                 <MainGroupCard

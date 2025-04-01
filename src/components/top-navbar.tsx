@@ -43,7 +43,7 @@ export default function TopNavbar() {
           setSearchResults([]);
           setSearchNotFound(false);
           return;
-        };
+        }
         if (!searchBarIsOpen) return;
         const response = await titleSearchFetch<Content[]>(searchQuery);
         setSearchResults(response);
@@ -80,26 +80,26 @@ export default function TopNavbar() {
   };
   return (
     <nav className="py-4 px-5 bg-white shadow-md fixed top-0 w-full z-10 sm:px-20">
-      <ul className="max-w-6xl flex justify-between mx-auto">
-        <li className="text-black flex items-center justify-center">
+      <ul className="max-w-6xl flex justify-between items-center mx-auto relative">
+        <li className="text-black flex items-center">
           <Link href="/" className="flex items-center">
             <Image src="/logo.png" alt="logo" width={40} height={40} />
-            <p className="ml-3 font-bold text-2xl hidden sm:block">JEALTH BLOG</p>
+            <p className="ml-3 font-bold text-xl sm:text-2xl">JEALTH BLOG</p>
           </Link>
         </li>
-        <li className="flex items-center justify-end relative w-full">
+        <li className="relative flex items-center">
           {searchBarIsOpen && (
-            <>
+            <div className="absolute -top-2 -right-2 sm:w-[500px] w-[300px]">
               <input
                 ref={searchBarRef}
                 type="text"
                 placeholder="Search..."
-                className="bg-white w-full sm:w-150 p-3 px-10 border border-gray-300 rounded shadow-md -right-3 absolute z-20 outline-none focus:border-gray-400 focus:ring-gray-400 z-10"
+                className="bg-white w-full p-2 border border-gray-300 rounded shadow-md outline-none focus:border-gray-400 focus:ring-gray-400"
                 onChange={debouncedFetchHandler}
               />
-              <ul className="bg-white w-full sm:w-150 p-3 px-7 border border-gray-300 rounded shadow-md -right-3 top-10 absolute z-20 outline-none focus:border-gray-400 focus:ring-gray-400 z-10 max-h-[300px] overflow-y-auto">
+              <ul className="bg-white w-full p-3 border border-gray-300 rounded shadow-md max-h-[300px] overflow-y-auto">
                 {isSearchLoading && (
-                  <div className="flex items-center justify-start w-full h-full">
+                  <div className="flex items-center justify-center">
                     <p className="text-gray-400">Loading...</p>
                   </div>
                 )}
@@ -108,40 +108,42 @@ export default function TopNavbar() {
                   searchResults.map((item) => (
                     <li
                       key={item.id}
-                      className="flex gap-4 w-full h-full z-20 hover:bg-gray-200 cursor-pointer rounded-md"
+                      className="flex justify-between items-center p-2 hover:bg-gray-200 cursor-pointer rounded-md"
                     >
                       <button
                         onClick={() => searchListClickHandler(item.id)}
-                        className="w-full h-full z-20 hover:bg-gray-200 cursor-pointer px-3 p-1 rounded-md flex items-center justify-start wrap"
+                        className="flex-1 text-left"
                       >
                         {item.title}
                       </button>
-                      <span className="text-gray-400 text-sm mr-2 flex items-center justify-end gap-2">
+                      <span className="text-gray-400 text-sm flex items-center gap-1">
                         {item.views > 0 ? (
-                          <>{item.views}<FaEye/></>
-                        ):(
-                          <>0<FaEye/></>
-                        ) }
+                          <>
+                            {item.views}
+                            <FaEye />
+                          </>
+                        ) : (
+                          <>
+                            0
+                            <FaEye />
+                          </>
+                        )}
                       </span>
                     </li>
                   ))}
-                  {
-                    searchNotFound && (
-                      <li className="w-full h-full z-20">
-                        <button className="w-full h-full z-20 px-3 p-1 flex items-center justify-start text-gray-400">
-                          검색 결과가 없습니다.
-                        </button>
-                      </li>
-                    )
-                  }
+                {searchNotFound && (
+                  <li className="text-gray-400 text-center p-2">
+                    검색 결과가 없습니다.
+                  </li>
+                )}
               </ul>
-            </>
+            </div>
           )}
           <button
             onClick={() => setSearchBarIsOpen(!searchBarIsOpen)}
-            className="flex items-center z-20 cursor-pointer"
+            className="flex items-center cursor-pointer z-10"
           >
-            <BiSearch size={30} />
+            <BiSearch size={24} />
           </button>
         </li>
       </ul>

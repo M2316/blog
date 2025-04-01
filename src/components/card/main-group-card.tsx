@@ -16,7 +16,7 @@ export default function MainGroupCard({ group, idx }: { group: PropsGroup; idx: 
 
   return (
     <Link
-      className="w-full h-50 flex flex-col items-center relative rounded-3xl overflow-hidden"
+      className="h-15 w-full sm:h-50 flex flex-col items-center relative rounded-xl sm:rounded-3xl overflow-hidden"
       href={`/category?id=${group.id}&groupName=${group.name}`}
     >
       <Image
