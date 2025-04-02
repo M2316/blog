@@ -17,7 +17,7 @@ import { Content } from "@/utils/dataPaser";
 
 function SkeletonUI() {
   return (
-    <div className="animate-pulse space-y-4 w-full">
+    <div className="animate-pulse space-y-4 w-full p-5 sm:p-0">
       <div className="h-100 bg-gray-400 rounded w-full"></div>
       <div className="h-12 bg-gray-400 rounded w-3/4"></div>
       <div className="space-y-2">

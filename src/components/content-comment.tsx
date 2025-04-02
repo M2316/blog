@@ -94,16 +94,16 @@ export default function ContentComment({paramsId}:{paramsId:string}) {
               changeHandler();
             }}
           />
-          <div className="flex justify-between w-full ">
-            <div className="flex gap-3">
+          <form className="flex justify-between  items-end w-full sm:flex-row flex-col gap-5">
+            <div className="flex gap-1 sm:flex-row w-full sm:gap-3">
               <input
-                className="border border-gray-300 rounded-xl p-3 px-5 outline-none"
+                className="border w-1/2 sm:max-w-[250px] border-gray-300 rounded-xl p-2 sm:p-3 sm:px-5 outline-none"
                 placeholder="작성자를 입력하세요."
                 type="text"
                 ref={writerRef}
               />
               <input
-                className="border border-gray-300 rounded-xl p-3 px-5 outline-none"
+                className="border w-1/2 sm:max-w-[250px] border-gray-300 rounded-xl p-2 sm:p-3 sm:px-5 outline-none"
                 placeholder="비밀번호를 입력하세요."
                 type="password"
                 ref={passwordRef}
@@ -114,7 +114,7 @@ export default function ContentComment({paramsId}:{paramsId:string}) {
                 댓글 등록
               </button>
             </div>
-          </div>
+          </form>
         </div>
       </div>
       <div className="flex flex-col gap-7">

@@ -31,9 +31,9 @@ export default async function Page({params}: {params: Promise<{id:string}>}) {
 
 
   return (
-    <section className="flex flex-col items-center w-full gap-10">
-      <div className="flex flex-col items-center w-full">
-        <h2 className="my-(--header-margin-1)">{`${pageInfo.title}`}</h2>
+    <section className="flex flex-col items-center w-full gap-10 px-5 sm:px-0">
+      <div className="flex flex-col items-center w-full ">
+        <p className="text-2xl sm:text-4xl font-bold my-(--header-margin-1)">{`${pageInfo.title}`}</p>
         <div className="flex justify-between w-full">
           <div className="flex flex-col gap-2">
             <p className="">{createAtTimeCalc(pageInfo.createdAt)}</p>
@@ -46,18 +46,18 @@ export default async function Page({params}: {params: Promise<{id:string}>}) {
           </div>
         </div>
       </div>
-      <article className="w-full flex justify-center min-h-200 p-10 border border-gray-300 rounded-xl bg-gray-100 shadow-md">
+      <article id="posted-detail" className="w-full flex justify-center min-h-200 sm:p-10 sm:border sm:border-gray-300 rounded-xl bg-gray-100 shadow-md ">
         <PostedDetail postedId={paramsId} />
       </article>
       <div className="flex flex-col justify-start w-full gap-3">
-        <h3 className="font-bold my-header-margin-3 flex w-full">
+        <h3 className="font-bold my-header-margin-3 flex w-full sm:px-0 px-5">
           NEXT. 다음 읽을 글 🌈
         </h3>
-        <ul className="flex justify-between gap-5">
+        <ul className="flex flex-col sm:flex-row sm:justify-between gap-5 px-5 sm:px-0">
           {
             randomNumbers.map((value:number)=>{
               return (
-                <li className="w-1/3" key={`next-card-${value}`}>
+                <li className="w-full sm:w-1/3" key={`next-card-${value}`}>
                   <NextContentCard content={latestContentList[value]}/>
                 </li>
               )

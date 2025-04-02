@@ -40,6 +40,7 @@ h3 {
 h4 {
     @apply text-lg font-bold;
 }
+
 .notion.notion-page{
     border: 2px solid #b2b2b2;
     padding-top: 10px;
@@ -77,4 +78,38 @@ h4 {
     overflow: hidden;
     line-height: 1.5; /* 선택적: 줄 간격 조정 */
     max-height: 3em; /* 선택적: (line-height × 줄 수) */
+}
+@media screen and (max-width: 470px) {
+    .notion.notion-page{
+        border: 1px solid #b2b2b2;
+        border-radius: 10px;
+        padding: 10px 10px;
+    }
+    
+    .notion figure{
+        padding: 10px;
+        border-radius: 10px;
+    }
+
+    .notion .notion-h-title{
+        font-size: 1.4rem;
+    }
+    .notion blockquote.notion-quote{
+        font-size: .8rem;
+    }
+    .notion .notion-text{
+        font-size: 0.8rem;
+    }
+    .notion .notion-h.notion-h1.notion-h-indent-0{
+        margin-top: 20px;
+    }
+    .notion .notion-list.notion-list-numbered {
+        width: 100%;
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+    .notion .notion-list.notion-list-numbered > li{
+        margin-left: 20px;
+    }
+    
 }
