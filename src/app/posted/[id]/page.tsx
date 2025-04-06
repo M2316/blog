@@ -3,8 +3,17 @@ import NextContentCard from "@/components/card/next-content-card";
 import ContentComment from "@/components/content-comment";
 import PostedDetail, { Views } from "@/components/posted-detail";
 import createAtTimeCalc from "@/utils/createAtTimeCalc";
+import { GetServerSideProps } from "next";
+
+// export const getServerSideProps: GetServerSideProps = async (ctx) => {
 
 
+//   return {
+//     props:{
+
+//     }
+//   }
+// }
 
 export default async function Page({params}: {params: Promise<{id:string}>}) {
   
@@ -27,7 +36,7 @@ export default async function Page({params}: {params: Promise<{id:string}>}) {
   });
   const latestContentList = contentList.filter((content)=> content.id !== paramsId);
 
-  const randomNumbers = getRandomNumbers(0, latestContentList.length, 3);
+  const randomNumbers = await getRandomNumbers(0, latestContentList.length, 3);
 
 
   return (
@@ -72,9 +81,15 @@ export default async function Page({params}: {params: Promise<{id:string}>}) {
 
 
 // 0~10 사이의 랜덤한 숫자 3개 생성[중복되지 않도록]
-const getRandomNumbers = (min: number, max: number, count: number) => {
+const getRandomNumbers = async (min: number, max: number, count: number) => {
+  // 가능한 숫자의 범위가 요청된 개수보다 작은 경우 처리
+  const possibleNumbers = max - min + 1;
+  if (count > possibleNumbers) {
+    count = possibleNumbers;
+  }
+  
   const numbers = new Set<number>();
-  while (numbers.size < count) {
+  for (let i = 0; i < count; i++) {
     const randomNum = Math.floor(Math.random() * (max - min + 1)) + min;
     numbers.add(randomNum);
   }

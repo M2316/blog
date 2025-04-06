@@ -67,8 +67,8 @@ export default function PostedDetail({
   }
 
   if (!recordMap) return null;
-
   return <NotionPage recordMap={recordMap} />;
+  
 }
 
 export function NotionPage({ recordMap }: { recordMap: ExtendedRecordMap }) {
