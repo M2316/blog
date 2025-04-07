@@ -315,7 +315,7 @@ function useSearch(searchBarIsOpen: boolean, setSearchBarIsOpen: (isOpen: boolea
   }, [searchQuery, searchBarIsOpen]);
 
   // 입력 값 변경 핸들러 - 디바운스 적용
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = () => {
     // 입력 필드의 값은 직접 DOM에서 관리하고, 검색 쿼리만 상태로 관리
     debouncedFetchHandler();
   };
