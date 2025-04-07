@@ -3,17 +3,6 @@ import NextContentCard from "@/components/card/next-content-card";
 import ContentComment from "@/components/content-comment";
 import PostedDetail, { Views } from "@/components/posted-detail";
 import createAtTimeCalc from "@/utils/createAtTimeCalc";
-import { GetServerSideProps } from "next";
-
-// export const getServerSideProps: GetServerSideProps = async (ctx) => {
-
-
-//   return {
-//     props:{
-
-//     }
-//   }
-// }
 
 export default async function Page({params}: {params: Promise<{id:string}>}) {
   
