@@ -13,36 +13,40 @@ export default function MainItemCard({
   thombnail,
 }: Content) {
   return (
-    <div className="w-1/2 sm:w-62 flex justify-center items-center p-2">
-      <Link
-        href={`posted/${id}`}
-        className="w-full h-full flex flex-col items-center rounded-3xl p-4 bg-[var(--color-card-background)] shadow-md"
-      >
-        <div className="w-full relative">
-          <Image
-            className="rounded-3xl h-40 object-cover"
-            alt="Thumbnail image"
-            src={thombnail || "/jealth_logo_v3.png"}
-            width={280}
-            height={170}
-            priority
-          />
-          <p className="absolute bottom-2 left-3 text-xs text-gray-100 bg-black bg-opacity-50 px-2 py-1 rounded">
-            조회수 {views ?? "--"}
-          </p>
-        </div>
-        <div className="w-full">
-          <h4 className="my-(--header-margin-4) text-line-clamp" title={title}>
-            {title}
-          </h4>
-          <p className="text-gray-400 text-xs mt-1 w-full flex justify-right">
-            {createAtTimeCalc(createdAt as string)}
-          </p>
-          <h5 className="text-gray-600 text-line-clamp" title={subtitle}>
-            {subtitle}
-          </h5>
-        </div>
-      </Link>
+    <div className="w-full p-3">
+      <article className="group h-full bg-[var(--color-card-background)] rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300">
+        <Link href={`posted/${id}`} className="block h-full">
+          {/* 이미지 섹션 */}
+          <div className="relative aspect-video overflow-hidden">
+            <Image
+              className="object-cover group-hover:scale-105 transition-transform duration-300"
+              alt="Thumbnail image"
+              src={thombnail || "/jealth_logo_v3.png"}
+              fill
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+              quality={80}
+              priority={false}
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            <span className="absolute bottom-3 left-3 px-2 py-1 text-xs text-white bg-black/50 rounded backdrop-blur-sm">
+              조회수 {views ?? "--"}
+            </span>
+          </div>
+
+          {/* 컨텐츠 섹션 */}
+          <div className="p-4">
+            <p className="text-lg font-semibold mb-2 line-clamp-2 group-hover:text-blue-600 transition-colors duration-300">
+              {title}
+            </p>
+            <p className="text-sm text-gray-600 line-clamp-2 mb-3">
+              {subtitle}
+            </p>
+            <time className="block text-xs text-gray-400 text-right">
+              {createAtTimeCalc(createdAt as string)}
+            </time>
+          </div>
+        </Link>
+      </article>
     </div>
   );
 }

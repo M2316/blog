@@ -182,7 +182,7 @@ export const titleSearchFetch = async <T>(findTitle:string):Promise<T>=>{
       query: findTitle,
       filter: {
         value: 'page',
-        property: 'object'
+        property: 'object',
       },
       sort: {
         direction: 'ascending',
@@ -191,7 +191,7 @@ export const titleSearchFetch = async <T>(findTitle:string):Promise<T>=>{
     }).then((res)=> res.results);
     const contentList = result.map((content)=>{
       return getPageProperties(content as NotionPage);
-    });
+    }).filter((content)=> content.status === "게시");
     return contentList as T;
   }catch(err){
     throw new Error(`제목 검색 요청이 실패 했습니다.🚫 \n reason : ${getErrorMessage(err)}`)

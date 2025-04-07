@@ -42,7 +42,6 @@ h4 {
 }
 
 .notion.notion-page{
-    border: 2px solid #b2b2b2;
     padding-top: 10px;
 }
 .notion figure{
@@ -81,8 +80,6 @@ h4 {
 }
 @media screen and (max-width: 470px) {
     .notion.notion-page{
-        border: 1px solid #b2b2b2;
-        border-radius: 10px;
         padding: 10px 10px;
     }
     
